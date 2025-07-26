@@ -1,0 +1,441 @@
+.dwelling-timer {
+  text-align: center;
+}
+
+.dwelling-timer h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.sequence-info {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.sets-setting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.sets-setting label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.sets-input {
+  width: 80px;
+  padding: 10px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+}
+
+.sets-input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.15);
+}
+
+.sets-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dwelling-display {
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 30px;
+  transition: background-color 0.3s ease;
+  box-shadow: inset 0 4px 15px rgba(0,0,0,0.2);
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.phase-indicator {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.light {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.light.green {
+  background: rgba(0, 255, 0, 0.3);
+}
+
+.light.red {
+  background: rgba(255, 0, 0, 0.3);
+}
+
+.light.active {
+  border-color: white;
+  box-shadow: 0 0 20px currentColor;
+  animation: blink 1s infinite;
+}
+
+.light.green.active {
+  background: #00ff00;
+  color: #00ff00;
+}
+
+.light.red.active {
+  background: #ff0000;
+  color: #ff0000;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.phase-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+}
+
+.time-display {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Courier New', monospace;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+}
+
+.shoot-counter {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+}
+
+.set-counter {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.sets-progress {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.set-progress {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.set-progress.completed {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.set-progress.current {
+  border-color: #fff;
+  background: rgba(255,255,255,0.2);
+  animation: pulse-progress 1s infinite;
+}
+
+.shots-progress {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.shoot-progress {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.shoot-progress.completed {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.shoot-progress.current {
+  border-color: #fff;
+  background: rgba(255,255,255,0.2);
+  animation: pulse-progress 1s infinite;
+}
+
+@keyframes pulse-progress {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.dwelling-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.dwelling-instructions {
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: left;
+  backdrop-filter: blur(10px);
+}
+
+.dwelling-instructions h3 {
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.dwelling-instructions ul {
+  color: white;
+  list-style-position: inside;
+}
+
+.dwelling-instructions li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.dwelling-instructions strong {
+  color: #ffd700;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .dwelling-timer h2 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  
+  .sequence-info {
+    font-size: 0.8rem;
+    margin-bottom: 18px;
+  }
+  
+  .sets-setting {
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .sets-setting label {
+    font-size: 0.9rem;
+  }
+  
+  .sets-input {
+    width: 70px;
+    padding: 8px;
+    font-size: 1rem;
+  }
+  
+  .dwelling-display {
+    padding: 30px 20px;
+    min-height: 180px;
+  }
+  
+  .light {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .phase-indicator {
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .phase-text {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  
+  .time-display {
+    font-size: 2.5rem;
+  }
+  
+  .shoot-counter {
+    font-size: 1.3rem;
+  }
+  
+  .set-counter {
+    font-size: 1.1rem;
+  }
+  
+  .progress-container {
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .sets-progress {
+    gap: 8px;
+  }
+  
+  .set-progress {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .shots-progress {
+    gap: 12px;
+  }
+  
+  .shoot-progress {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  
+  .dwelling-instructions {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dwelling-timer h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  
+  .sequence-info {
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+  }
+  
+  .sets-setting {
+    margin-bottom: 18px;
+    gap: 8px;
+    flex-direction: column;
+  }
+  
+  .sets-setting label {
+    font-size: 0.85rem;
+  }
+  
+  .sets-input {
+    width: 65px;
+    padding: 6px;
+    font-size: 0.95rem;
+  }
+  
+  .dwelling-display {
+    padding: 25px 15px;
+    min-height: 160px;
+  }
+  
+  .light {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .phase-indicator {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .phase-text {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .time-display {
+    font-size: 2rem;
+  }
+  
+  .shoot-counter {
+    font-size: 1.2rem;
+  }
+  
+  .set-counter {
+    font-size: 1rem;
+  }
+  
+  .progress-container {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .sets-progress {
+    gap: 6px;
+  }
+  
+  .set-progress {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+  
+  .shots-progress {
+    gap: 8px;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 5px;
+  }
+  
+  .shoot-progress {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  
+  .dwelling-instructions {
+    padding: 12px;
+  }
+  
+  .dwelling-instructions li {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+}
