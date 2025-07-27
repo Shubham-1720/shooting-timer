@@ -10,22 +10,26 @@ A professional timer website designed specifically for shooting practice by Rajv
 - **Audio Feedback**: Beep sound when timer completes
 - **Easy Controls**: Start, pause, and reset functionality
 
-### 🏹 Dwelling Timer (Competition Mode)
+### 🏹 Rapid Fire Timer (Competition Mode)
 A specialized timer sequence designed for shooting practice:
 
-1. **Loading Phase (45 seconds)**: Prepare equipment and position
-2. **Shooting Phase (3 seconds)**: Take your shot
+1. **Loading Phase (60 seconds)**: Prepare equipment and position
+2. **Skip Loading Option**: During loading, click "Skip Loading" button when ready to shoot
+3. **Preparation Phase (7 seconds)**: Get ready for shooting (before every shot)
+4. **Shooting Phase (3 seconds)**: Take your shot
    - Green light indicator
    - Audio beep at completion
-3. **Preparation Phase (7 seconds)**: Prepare for next shot
-   - Red light indicator
+5. **Preparation Phase (7 seconds)**: Prepare for next shot
+   - Red light indicator  
    - Audio beep at completion
-4. **Repeat**: Cycle continues for 5 shots per set
+6. **Repeat**: Steps 4-5 continue for 5 shots per set
 
 **Key Features:**
 - **Set-Based Training**: Configure 1-10 sets of 5 shots each
-- **Complete Sequences**: Each set includes loading + 5 shooting cycles
+- **Dynamic Skip Loading**: Skip button appears only during loading phase
+- **Complete Preparation**: 7 seconds preparation time before every shot (including first shot)
 - **Accurate Progression**: Fixed shot counting (1→2→3→4→5) per set
+- **Enhanced Audio**: Louder beep sounds for better feedback
 - **Visual Progress**: Shows both current set and current shot progress
 
 ### 📱 Mobile Responsive

@@ -8,7 +8,6 @@ const RapidFireTimer = () => {
   const [currentSet, setCurrentSet] = useState(0)
   const [totalSets, setTotalSets] = useState(3)
   const [isRunning, setIsRunning] = useState(false)
-  const [skipLoading, setSkipLoading] = useState(false)
   const intervalRef = useRef(null)
   const audioRef = useRef(null)
 
@@ -77,7 +76,7 @@ const RapidFireTimer = () => {
       // After loading, start first shoot of current set with preparation time
       setPhase('preparing')
       setTimeLeft(PHASES.preparing.duration)
-      setCurrentShoot(1)
+      setCurrentShoot(0) // Keep at 0, will be set to 1 after preparing phase
     } else if (phase === 'shooting') {
       // After shooting, either prepare for next shot or move to next set/finish
       if (currentShoot < SHOTS_PER_SET) {
@@ -88,17 +87,11 @@ const RapidFireTimer = () => {
       } else {
         // Current set completed
         if (currentSet < totalSets) {
-          // Move to next set - start loading again (or skip if option is enabled)
+          // Move to next set - start loading again
           setCurrentSet(prev => prev + 1)
           setCurrentShoot(0)
-          if (skipLoading) {
-            setPhase('preparing')
-            setTimeLeft(PHASES.preparing.duration)
-            setCurrentShoot(1)
-          } else {
-            setPhase('loading')
-            setTimeLeft(PHASES.loading.duration)
-          }
+          setPhase('loading')
+          setTimeLeft(PHASES.loading.duration)
         } else {
           // All sets completed
           setIsRunning(false)
@@ -125,19 +118,21 @@ const RapidFireTimer = () => {
   }
 
   const startSequence = () => {
-    if (skipLoading) {
-      // Skip loading and go directly to preparation for first shot
-      setPhase('preparing')
-      setTimeLeft(PHASES.preparing.duration)
-      setCurrentShoot(1)
-    } else {
-      // Start with loading phase
-      setPhase('loading')
-      setTimeLeft(PHASES.loading.duration)
-      setCurrentShoot(0)
-    }
+    // Always start with loading phase
+    setPhase('loading')
+    setTimeLeft(PHASES.loading.duration)
+    setCurrentShoot(0)
     setCurrentSet(1)
     setIsRunning(true)
+  }
+
+  const skipLoadingPhase = () => {
+    // Skip current loading and go directly to preparation for first shot
+    if (phase === 'loading') {
+      setPhase('preparing')
+      setTimeLeft(PHASES.preparing.duration)
+      setCurrentShoot(0) // Keep at 0, will be set to 1 after preparing phase
+    }
   }
 
   const stopSequence = () => {
@@ -170,7 +165,7 @@ const RapidFireTimer = () => {
   }
 
   const handleSetsChange = (value) => {
-    const numValue = value;
+    const numValue = Math.max(1, Math.min(10, parseInt(value) || 1))
     setTotalSets(numValue)
   }
 
@@ -185,24 +180,13 @@ const RapidFireTimer = () => {
           <input
             id="totalSets"
             type="number"
+            min="1"
+            max="10"
             value={totalSets}
             onChange={(e) => handleSetsChange(e.target.value)}
             disabled={isRunning}
             className="sets-input"
           />
-        </div>
-        
-        <div className="skip-loading">
-          <label htmlFor="skipLoading">
-            <input
-              id="skipLoading"
-              type="checkbox"
-              checked={skipLoading}
-              onChange={(e) => setSkipLoading(e.target.checked)}
-              disabled={isRunning}
-            />
-            Skip Loading Time (Direct to Shooting)
-          </label>
         </div>
       </div>
       
@@ -231,15 +215,9 @@ const RapidFireTimer = () => {
           </div>
         )}
         
-        {currentShoot > 0 && (
+        {(currentShoot > 0 || (phase === 'preparing' && currentShoot === 0)) && (
           <div className="shoot-counter">
-            Shot {currentShoot} of {SHOTS_PER_SET}
-          </div>
-        )}
-        
-        {currentShoot === 0 && phase === 'preparing' && (
-          <div className="shoot-counter">
-            Preparing for Shot 1 of {SHOTS_PER_SET}
+            {currentShoot === 0 ? `Preparing for Shot 1 of ${SHOTS_PER_SET}` : `Shot ${currentShoot} of ${SHOTS_PER_SET}`}
           </div>
         )}
       </div>
@@ -278,24 +256,30 @@ const RapidFireTimer = () => {
         {!isRunning ? (
           <button className="btn btn-start-dwelling" onClick={startSequence}>
             Start {totalSets} Set{totalSets > 1 ? 's' : ''} ({totalSets * SHOTS_PER_SET} total shots)
-            {skipLoading ? ' - Skip Loading' : ''}
           </button>
         ) : (
-          <button className="btn btn-stop" onClick={stopSequence}>
-            Stop
-          </button>
+          <div className="control-buttons">
+            {phase === 'loading' && (
+              <button className="btn btn-skip-loading" onClick={skipLoadingPhase}>
+                Skip Loading (Ready to Shoot)
+              </button>
+            )}
+            <button className="btn btn-stop" onClick={stopSequence}>
+              Stop
+            </button>
+          </div>
         )}
       </div>
 
       <div className="dwelling-instructions">
         <h3>Instructions:</h3>
         <ul>
-          <li><strong>Loading (60s):</strong> Prepare your equipment and position (can be skipped)</li>
+          <li><strong>Loading (60s):</strong> Prepare your equipment and position</li>
+          <li><strong>Skip Option:</strong> During loading, use "Skip Loading" button when ready</li>
           <li><strong>Preparing (7s, Red):</strong> Get ready for shooting</li>
           <li><strong>Shooting (3s, Green):</strong> Take your shot</li>
           <li><strong>Sets:</strong> Each set contains 5 shots with preparation between each</li>
           <li><strong>Audio:</strong> Louder beep sounds mark phase transitions</li>
-          <li><strong>Skip Option:</strong> Check "Skip Loading" to go directly to shooting sequence</li>
         </ul>
       </div>
     </div>

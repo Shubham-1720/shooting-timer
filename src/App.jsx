@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import GeneralTimer from './components/GeneralTimer'
-import DwellingTimer from './components/DwellingTimer'
+import RapidFireTimer from './components/RapidFireTimer'
 
 function App() {
   const [activeTimer, setActiveTimer] = useState('general')
@@ -21,15 +21,15 @@ function App() {
           General Timer
         </button>
         <button 
-          className={`nav-btn ${activeTimer === 'dwelling' ? 'active' : ''}`}
-          onClick={() => setActiveTimer('dwelling')}
+          className={`nav-btn ${activeTimer === 'rapidfire' ? 'active' : ''}`}
+          onClick={() => setActiveTimer('rapidfire')}
         >
-          Dwelling Timer
+          Rapid Fire Timer
         </button>
       </nav>
 
       <main className="timer-content">
-        {activeTimer === 'general' ? <GeneralTimer /> : <DwellingTimer />}
+        {activeTimer === 'general' ? <GeneralTimer /> : <RapidFireTimer />}
       </main>
     </div>
   )
