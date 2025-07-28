@@ -165,7 +165,7 @@ const RapidFireTimer = () => {
   }
 
   const handleSetsChange = (value) => {
-    const numValue = Math.max(1, Math.min(10, parseInt(value) || 1))
+    const numValue = value;
     setTotalSets(numValue)
   }
 
